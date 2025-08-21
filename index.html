@@ -151,7 +151,14 @@
                         <div class="relative h-80 w-full"><canvas id="performanceChart"></canvas></div>
                     </div>
                     <div class="card p-6 rounded-2xl fade-in flex flex-col" style="animation-delay: 0.1s;">
-                        <h2 class="text-xl font-bold mb-4 text-center">Comparativa Nacional (2024)</h2>
+                        <div class="flex justify-center items-center gap-2 mb-4">
+                            <h2 class="text-xl font-bold text-center">Comparativa Nacional (2024)</h2>
+                            <button id="info-comparison-btn" class="w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--bg-tertiary);">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
                         <div class="relative h-80 w-full flex-grow"><canvas id="comparisonChart"></canvas></div>
                         <a href="https://www.javeriana.edu.co/recursosdb/d/lee/inf-114-informe-saber-11-2025-lee" target="_blank" rel="noopener noreferrer" class="mt-4 text-center text-xs hover:underline" style="color: var(--text-secondary);">
                             Fuente: Lab. de Economía de la Educación (LEE) - U. Javeriana
@@ -174,6 +181,8 @@
     </button>
     
     <div id="toast" class="fixed bottom-24 right-5 bg-green-500 text-white py-2 px-5 rounded-lg shadow-xl opacity-0 translate-y-5 transition-all duration-300">Reporte copiado</div>
+    
+    <!-- Modales -->
     <div id="detail-modal" class="modal-overlay">
         <div class="modal-content rounded-2xl transform scale-95 transition-transform duration-300">
              <div id="modal-header" class="flex justify-between items-center mb-4">
@@ -181,6 +190,19 @@
                 <button id="close-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
             </div>
             <div id="modal-body"></div>
+        </div>
+    </div>
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content rounded-2xl transform scale-95 transition-transform duration-300">
+             <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">¿Qué significa cada promedio?</h2>
+                <button id="close-info-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
+            </div>
+            <div class="space-y-4 text-sm" style="color: var(--text-secondary);">
+                <p><strong class="font-bold" style="color: var(--text-primary);">Promedio C. Públicos:</strong> Es el puntaje promedio obtenido por estudiantes de colegios públicos. Te sirve como referencia si estudias en uno de ellos.</p>
+                <p><strong class="font-bold" style="color: var(--text-primary);">Promedio C. Privados:</strong> Es el puntaje promedio de los estudiantes de colegios privados. Históricamente, este promedio tiende a ser más alto.</p>
+                <p>Compararte con ambos te da una visión más completa y justa de tu rendimiento, permitiéndote establecer metas más realistas según tu contexto.</p>
+            </div>
         </div>
     </div>
     
@@ -309,9 +331,14 @@
         }
 
         function initializeModal() {
-            const modal = document.getElementById('detail-modal');
-            document.getElementById('close-modal-btn').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+            const detailModal = document.getElementById('detail-modal');
+            document.getElementById('close-modal-btn').addEventListener('click', () => detailModal.classList.remove('active'));
+            detailModal.addEventListener('click', (e) => { if (e.target === detailModal) detailModal.classList.remove('active'); });
+            
+            const infoModal = document.getElementById('info-modal');
+            document.getElementById('info-comparison-btn').addEventListener('click', () => infoModal.classList.add('active'));
+            document.getElementById('close-info-modal-btn').addEventListener('click', () => infoModal.classList.remove('active'));
+            infoModal.addEventListener('click', (e) => { if (e.target === infoModal) infoModal.classList.remove('active'); });
         }
 
         function createSubjectCard(subject) {
@@ -538,8 +565,8 @@
                 labels: subjects.map(s => s.name),
                 datasets: [
                     { label: 'Tu Puntaje', data: [], backgroundColor: subjects.map(s => s.color), borderRadius: 4 },
-                    { label: 'Prom. Oficial', data: [], backgroundColor: 'rgba(239, 68, 68, 0.5)', borderRadius: 4 },
-                    { label: 'Prom. No Oficial', data: [], backgroundColor: 'rgba(59, 130, 246, 0.5)', borderRadius: 4 }
+                    { label: 'Prom. C. Públicos', data: [], backgroundColor: 'rgba(239, 68, 68, 0.5)', borderRadius: 4 },
+                    { label: 'Prom. C. Privados', data: [], backgroundColor: 'rgba(59, 130, 246, 0.5)', borderRadius: 4 }
                 ]
             };
         }
