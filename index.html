@@ -13,7 +13,7 @@
         :root {
             /* --- Colores Tema Oscuro (Default) --- */
             --bg-primary: #0f172a; /* Slate 900 */
-            --bg-secondary: rgba(30, 41, 59, 0.5); /* Slate 800 with alpha */
+            --bg-secondary: rgba(30, 41, 59, 0.7); /* Slate 800 with alpha */
             --bg-tertiary: #334155; /* Slate 700 */
             --text-primary: #f8fafc; /* Slate 50 */
             --text-secondary: #94a3b8; /* Slate 400 */
@@ -26,7 +26,7 @@
         html.light {
             /* --- Colores Tema Claro --- */
             --bg-primary: #f1f5f9; /* Slate 100 */
-            --bg-secondary: rgba(255, 255, 255, 0.5);
+            --bg-secondary: rgba(255, 255, 255, 0.7);
             --bg-tertiary: #e2e8f0; /* Slate 200 */
             --text-primary: #0f172a; /* Slate 900 */
             --text-secondary: #475569; /* Slate 600 */
@@ -77,14 +77,22 @@
         /* --- Estilos de Componentes --- */
         .number-input-button { background-color: var(--bg-tertiary); }
         .number-input { background-color: var(--bg-secondary); border: 1px solid var(--border-color); }
-        .modal-content { background-color: var(--bg-secondary); border: 1px solid var(--accent-color); backdrop-filter: blur(10px); }
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex; align-items: center; justify-content: center;
             z-index: 50; opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+            backdrop-filter: blur(4px);
         }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { 
+            background-color: var(--bg-primary); 
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
         .modal-overlay.active .modal-content { transform: scale(1); }
         
         input[type=number]::-webkit-inner-spin-button, 
@@ -184,7 +192,7 @@
     
     <!-- Modales -->
     <div id="detail-modal" class="modal-overlay">
-        <div class="modal-content rounded-2xl transform scale-95 transition-transform duration-300">
+        <div class="modal-content p-6 rounded-2xl transform scale-95 transition-transform duration-300">
              <div id="modal-header" class="flex justify-between items-center mb-4">
                 <h2 id="modal-title" class="text-2xl font-bold">Detalles del Nivel</h2>
                 <button id="close-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
@@ -193,7 +201,7 @@
         </div>
     </div>
     <div id="info-modal" class="modal-overlay">
-        <div class="modal-content rounded-2xl transform scale-95 transition-transform duration-300">
+        <div class="modal-content p-6 rounded-2xl transform scale-95 transition-transform duration-300">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">¿Qué significa cada promedio?</h2>
                 <button id="close-info-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
@@ -303,6 +311,11 @@
                     card.classList.add('sm:col-span-2', 'xl:col-span-4');
                 }
                 container.appendChild(card);
+                const minusButton = card.querySelector('.minus-btn');
+                const plusButton = card.querySelector('.plus-btn');
+                minusButton.addEventListener('click', () => adjustErrors(subject.id, -1));
+                plusButton.addEventListener('click', () => adjustErrors(subject.id, 1));
+
                 card.querySelector(`#errors-${subject.id}`).addEventListener('input', (e) => handleInput(e, subject));
                 card.querySelector(`#achieved-levels-btn-${subject.id}`).addEventListener('click', () => showDetailsModal(subject.id, 'achieved'));
                 card.querySelector(`#missing-levels-btn-${subject.id}`).addEventListener('click', () => showDetailsModal(subject.id, 'missing'));
@@ -351,9 +364,9 @@
                 <div class="relative z-10 flex flex-col h-full">
                     <h3 class="text-lg font-bold mb-4">${subject.emoji} ${subject.name}</h3>
                     <div class="flex items-center gap-2">
-                        <button type="button" class="number-input-button w-10 h-10 text-2xl rounded-md flex-shrink-0" onclick="adjustErrors('${subject.id}', -1)">-</button>
+                        <button type="button" class="number-input-button minus-btn w-10 h-10 text-2xl rounded-md flex-shrink-0">-</button>
                         <input type="number" id="errors-${subject.id}" value="0" min="0" max="${maxErrors}" class="number-input w-full text-center h-10 rounded-md text-lg font-semibold" placeholder="Errores">
-                        <button type="button" class="number-input-button w-10 h-10 text-2xl rounded-md flex-shrink-0" onclick="adjustErrors('${subject.id}', 1)">+</button>
+                        <button type="button" class="number-input-button plus-btn w-10 h-10 text-2xl rounded-md flex-shrink-0">+</button>
                     </div>
                     <div class="text-center my-4">
                         <span class="text-5xl font-extrabold" id="score-${subject.id}">${initialScore}</span>
@@ -369,7 +382,7 @@
         }
 
         function adjustErrors(subjectId, amount) {
-            const input = document.getElementById(`errors-${subject.id}`);
+            const input = document.getElementById(`errors-${subjectId}`);
             let val = (parseInt(input.value) || 0) + amount;
             val = Math.max(0, Math.min(val, parseInt(input.max)));
             input.value = val;
