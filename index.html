@@ -65,7 +65,6 @@
             background-image: url('https://images.prismic.io/scopegenius/aKe6c6Tt2nPbangW_20250821_193006_0000.png?auto=format,compress');
             background-repeat: no-repeat;
             background-position: center;
-            /* CAMBIO: De 'contain' a 'cover' para llenar la pantalla */
             background-size: cover; 
             opacity: 0.06; 
             pointer-events: none;
@@ -385,8 +384,15 @@
                 container.appendChild(card);
                 const minusButton = card.querySelector('.minus-btn');
                 const plusButton = card.querySelector('.plus-btn');
-                minusButton.addEventListener('click', () => adjustErrors(subject.id, -1));
-                plusButton.addEventListener('click', () => adjustErrors(subject.id, 1));
+
+                // CAMBIO: Lógica de eventos para compatibilidad móvil
+                const handleMinus = (e) => { e.preventDefault(); adjustErrors(subject.id, -1); };
+                const handlePlus = (e) => { e.preventDefault(); adjustErrors(subject.id, 1); };
+
+                minusButton.addEventListener('click', handleMinus);
+                minusButton.addEventListener('touchstart', handleMinus, { passive: false });
+                plusButton.addEventListener('click', handlePlus);
+                plusButton.addEventListener('touchstart', handlePlus, { passive: false });
 
                 card.querySelector(`#errors-${subject.id}`).addEventListener('input', (e) => handleInput(e, subject));
                 card.querySelector(`#achieved-levels-btn-${subject.id}`).addEventListener('click', () => showDetailsModal(subject.id, 'achieved'));
@@ -403,7 +409,11 @@
         }
         
         function initializeActionButtons() {
-            document.getElementById('reset-all-btn').addEventListener('click', () => {
+            const resetBtn = document.getElementById('reset-all-btn');
+            const saveBtn = document.getElementById('save-report-btn');
+            
+            const handleReset = (e) => {
+                e.preventDefault();
                 subjects.forEach(subject => {
                     const input = document.getElementById(`errors-${subject.id}`);
                     if (input.value !== '0') {
@@ -411,8 +421,17 @@
                         input.dispatchEvent(new Event('input'));
                     }
                 });
-            });
-            document.getElementById('save-report-btn').addEventListener('click', saveReportToClipboard);
+            };
+
+            const handleSave = (e) => {
+                e.preventDefault();
+                saveReportToClipboard();
+            };
+
+            resetBtn.addEventListener('click', handleReset);
+            resetBtn.addEventListener('touchstart', handleReset, { passive: false });
+            saveBtn.addEventListener('click', handleSave);
+            saveBtn.addEventListener('touchstart', handleSave, { passive: false });
         }
 
         function initializeModal() {
@@ -421,7 +440,11 @@
             detailModal.addEventListener('click', (e) => { if (e.target === detailModal) detailModal.classList.remove('active'); });
             
             const infoModal = document.getElementById('info-modal');
-            document.getElementById('info-comparison-btn').addEventListener('click', () => infoModal.classList.add('active'));
+            const infoBtn = document.getElementById('info-comparison-btn');
+            const handleInfoOpen = (e) => { e.preventDefault(); infoModal.classList.add('active'); };
+            infoBtn.addEventListener('click', handleInfoOpen);
+            infoBtn.addEventListener('touchstart', handleInfoOpen, { passive: false });
+
             document.getElementById('close-info-modal-btn').addEventListener('click', () => infoModal.classList.remove('active'));
             infoModal.addEventListener('click', (e) => { if (e.target === infoModal) infoModal.classList.remove('active'); });
         }
@@ -454,7 +477,7 @@
         }
 
         function adjustErrors(subjectId, amount) {
-            const input = document.getElementById(`errors-${subject.id}`);
+            const input = document.getElementById(`errors-${subjectId}`);
             let val = (parseInt(input.value) || 0) + amount;
             val = Math.max(0, Math.min(val, parseInt(input.max)));
             input.value = val;
