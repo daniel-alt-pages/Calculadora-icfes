@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es" class="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +10,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             /* --- Colores Tema Oscuro (Default) --- */
-            --bg-primary: #0f172a;
+            --bg-primary: #0f172a; 
             --bg-secondary: rgba(30, 41, 59, 0.7);
             --bg-tertiary: #334155;
             --text-primary: #f8fafc;
@@ -39,18 +37,15 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-primary); 
             color: var(--text-primary);
             transition: background-color 0.3s, color 0.3s;
             overflow-x: hidden;
         }
-
+        
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -70,20 +65,20 @@
             background-image: url('https://images.prismic.io/scopegenius/aKe6c6Tt2nPbangW_20250821_193006_0000.png?auto=format,compress');
             background-repeat: no-repeat;
             background-position: center;
-            background-size: contain;
-            opacity: 0.1;
+            /* CAMBIO: De 'contain' a 'cover' para llenar la pantalla */
+            background-size: cover; 
+            opacity: 0.1; 
             pointer-events: none;
-            /* CAMBIO: z-index para estar por encima de todo */
-            z-index: 40;
+            z-index: 40; 
         }
-
+        
         html.light .watermark {
-            filter: invert(1);
+            filter: invert(1); 
         }
 
         .card {
             background-color: var(--bg-secondary);
-            border: 1px solid transparent;
+            border: 1px solid transparent; 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             transition: all 0.3s ease;
@@ -120,39 +115,23 @@
             transition: all 0.2s ease;
             transform-origin: center;
         }
-
         .btn:hover {
             transform: scale(1.05);
         }
-
         .btn:active {
             transform: scale(0.98);
         }
 
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 50;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 50; opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
             backdrop-filter: blur(4px);
         }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background-color: var(--bg-primary);
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { 
+            background-color: var(--bg-primary); 
             border: 1px solid var(--border-color);
             width: 90%;
             max-width: 500px;
@@ -161,31 +140,20 @@
             transform: translateY(20px) scale(0.95);
             transition: transform 0.3s ease-out;
         }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0) scale(1);
-        }
-
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
 
         .animated-item {
             opacity: 0;
         }
 
-        /* CAMBIO: Estilos para bloqueo de impresión */
         @media print {
             body * {
                 display: none !important;
             }
-
             body::before {
                 content: "La impresión de esta página no está permitida.";
                 display: block;
@@ -197,7 +165,6 @@
         }
     </style>
 </head>
-
 <body class="w-full">
 
     <canvas id="particle-canvas"></canvas>
@@ -205,11 +172,10 @@
 
     <div class="container mx-auto p-4 lg:p-8 max-w-screen-2xl relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
+            
             <aside class="lg:col-span-3 h-max space-y-8">
                 <div class="text-center animated-item">
-                    <img src="https://i.ibb.co/SDVC1ssP/Copia-de-Seamos-Genios-20241115-011133-0000.png"
-                        alt="Logo SEAMOSGENIOS" class="mx-auto h-20 mb-4 rounded-2xl shadow-lg">
+                    <img src="https://i.ibb.co/SDVC1ssP/Copia-de-Seamos-Genios-20241115-011133-0000.png" alt="Logo SEAMOSGENIOS" class="mx-auto h-20 mb-4 rounded-2xl shadow-lg">
                     <h1 class="text-2xl font-black">Diagnóstico Premium</h1>
                     <p class="text-sm" style="color: var(--text-secondary);">SEAMOSGENIOS COLOMBIA</p>
                 </div>
@@ -217,9 +183,7 @@
                 <div class="card p-6 text-center animated-item">
                     <h2 class="text-lg font-bold mb-4">Puntaje Global</h2>
                     <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
-                        <div id="global-score-circle"
-                            style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--accent-color) 0deg, var(--bg-tertiary) 0deg); transition: background 0.8s ease-out, --accent-color 0.5s ease;">
-                        </div>
+                        <div id="global-score-circle" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--accent-color) 0deg, var(--bg-tertiary) 0deg); transition: background 0.8s ease-out, --accent-color 0.5s ease;"></div>
                         <span id="global-score-value" class="text-5xl font-extrabold z-10">0</span>
                     </div>
                     <div id="global-feedback" class="mt-4 text-sm font-medium h-5"></div>
@@ -240,15 +204,11 @@
                 </div>
 
                 <div class="card p-6 animated-item">
-                    <h2 class="text-lg font-bold mb-4">Acciones</h2>
-                    <div class="flex flex-col space-y-3">
-                        <button id="reset-all-btn"
-                            class="btn w-full bg-red-600/80 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600">Reiniciar
-                            Todo</button>
-                        <button id="save-report-btn" class="btn w-full text-white font-semibold py-2 px-4 rounded-lg"
-                            style="background-color: var(--accent-color); hover:background-color: var(--accent-hover);">Guardar
-                            Reporte</button>
-                    </div>
+                   <h2 class="text-lg font-bold mb-4">Acciones</h2>
+                   <div class="flex flex-col space-y-3">
+                       <button id="reset-all-btn" class="btn w-full bg-red-600/80 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600">Reiniciar Todo</button>
+                       <button id="save-report-btn" class="btn w-full text-white font-semibold py-2 px-4 rounded-lg" style="background-color: var(--accent-color); hover:background-color: var(--accent-hover);">Guardar Reporte</button>
+                   </div>
                 </div>
             </aside>
 
@@ -261,21 +221,14 @@
                     <div class="card p-6 flex flex-col animated-item">
                         <div class="flex justify-center items-center gap-2 mb-4">
                             <h2 class="text-xl font-bold text-center">Comparativa Nacional (2024)</h2>
-                            <button id="info-comparison-btn"
-                                class="btn w-6 h-6 rounded-full flex items-center justify-center"
-                                style="background-color: var(--bg-tertiary);">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                        clip-rule="evenodd" />
+                            <button id="info-comparison-btn" class="btn w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--bg-tertiary);">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
                                 </svg>
                             </button>
                         </div>
                         <div class="relative h-80 w-full flex-grow"><canvas id="comparisonChart"></canvas></div>
-                        <a href="https://www.javeriana.edu.co/recursosdb/d/lee/inf-114-informe-saber-11-2025-lee"
-                            target="_blank" rel="noopener noreferrer" class="mt-4 text-center text-xs hover:underline"
-                            style="color: var(--text-secondary);">
+                        <a href="https://www.javeriana.edu.co/recursosdb/d/lee/inf-114-informe-saber-11-2025-lee" target="_blank" rel="noopener noreferrer" class="mt-4 text-center text-xs hover:underline" style="color: var(--text-secondary);">
                             Fuente: Lab. de Economía de la Educación (LEE) - U. Javeriana
                         </a>
                     </div>
@@ -288,52 +241,37 @@
             </main>
         </div>
     </div>
-
-    <button id="theme-toggle"
-        class="btn fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110"
-        style="background-color: var(--bg-tertiary);">
-        <svg id="theme-icon-light" class="w-7 h-7 hidden" fill="currentColor" viewBox="0 0 20 20">
-            <path
-                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-3.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.95-2.464A1 1 0 013.636 14.12l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM1.464 8.536a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM4.95 6.364a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707z">
-            </path>
-        </svg>
-        <svg id="theme-icon-dark" class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
+    
+    <button id="theme-toggle" class="btn fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110" style="background-color: var(--bg-tertiary);">
+        <svg id="theme-icon-light" class="w-7 h-7 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-3.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.95-2.464A1 1 0 013.636 14.12l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM1.464 8.536a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM4.95 6.364a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707z"></path></svg>
+        <svg id="theme-icon-dark" class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
     </button>
-
-    <div id="toast"
-        class="fixed bottom-24 right-5 bg-green-500 text-white py-2 px-5 rounded-lg shadow-xl opacity-0 translate-y-5 transition-all duration-300">
-        Reporte copiado</div>
-
+    
+    <div id="toast" class="fixed bottom-24 right-5 bg-green-500 text-white py-2 px-5 rounded-lg shadow-xl opacity-0 translate-y-5 transition-all duration-300">Reporte copiado</div>
+    
     <div id="detail-modal" class="modal-overlay">
         <div class="modal-content p-6 rounded-2xl">
-            <div id="modal-header" class="flex justify-between items-center mb-4">
-                <h2 id="modal-title" class="text-2xl font-bold">Detalles del Nivel</h2>
-                <button id="close-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
+             <div id="modal-header" class="flex justify-between items-center mb-4">
+                 <h2 id="modal-title" class="text-2xl font-bold">Detalles del Nivel</h2>
+                 <button id="close-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
             </div>
             <div id="modal-body"></div>
         </div>
     </div>
     <div id="info-modal" class="modal-overlay">
         <div class="modal-content p-6 rounded-2xl">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold">¿Qué significa cada promedio?</h2>
-                <button id="close-info-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
+             <div class="flex justify-between items-center mb-4">
+                 <h2 class="text-2xl font-bold">¿Qué significa cada promedio?</h2>
+                 <button id="close-info-modal-btn" class="text-3xl font-bold leading-none">&times;</button>
             </div>
             <div class="space-y-4 text-sm" style="color: var(--text-secondary);">
-                <p><strong class="font-bold" style="color: var(--text-primary);">Promedio Colegio Públicos:</strong> Es
-                    el puntaje promedio obtenido por estudiantes de colegios públicos. Te sirve como referencia si
-                    estudias en uno de ellos.</p>
-                <p><strong class="font-bold" style="color: var(--text-primary);">Promedio Colegio Privados:</strong> Es
-                    el puntaje promedio de los estudiantes de colegios privados. Históricamente, este promedio tiende a
-                    ser más alto.</p>
-                <p>Compararte con ambos te da una visión más completa y justa de tu rendimiento, permitiéndote
-                    establecer metas más realistas según tu contexto.</p>
+                 <p><strong class="font-bold" style="color: var(--text-primary);">Promedio Colegio Públicos:</strong> Es el puntaje promedio obtenido por estudiantes de colegios públicos. Te sirve como referencia si estudias en uno de ellos.</p>
+                 <p><strong class="font-bold" style="color: var(--text-primary);">Promedio Colegio Privados:</strong> Es el puntaje promedio de los estudiantes de colegios privados. Históricamente, este promedio tiende a ser más alto.</p>
+                 <p>Compararte con ambos te da una visión más completa y justa de tu rendimiento, permitiéndote establecer metas más realistas según tu contexto.</p>
             </div>
         </div>
     </div>
-
+    
     <script>
         // --- LÓGICA DE LA APLICACIÓN ---
         const performanceDetails = {
@@ -370,11 +308,11 @@
             }
         };
         const scoreLookupTable = {
-            lectura: [100, 80, 78, 75, 72, 69, 66, 63, 60, 57, 54, 51, 49, 46, 43, 40, 37, 34, 31, 29, 26, 23, 21, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+            lectura:     [100, 80, 78, 75, 72, 69, 66, 63, 60, 57, 54, 51, 49, 46, 43, 40, 37, 34, 31, 29, 26, 23, 21, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
             matematicas: [100, 82, 80, 77, 76, 73, 69, 67, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30],
-            sociales: [100, 82, 80, 77, 76, 73, 69, 67, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30],
-            ciencias: [100, 81, 80, 77, 76, 73, 69, 67, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30],
-            ingles: [100, 83, 80, 77, 76, 73, 69, 64, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30]
+            sociales:    [100, 82, 80, 77, 76, 73, 69, 67, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30],
+            ciencias:    [100, 81, 80, 77, 76, 73, 69, 67, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30],
+            ingles:      [100, 83, 80, 77, 76, 73, 69, 64, 66, 65, 63, 62, 60, 59, 57, 56, 55, 53, 52, 51, 49, 48, 47, 45, 44, 42, 41, 40, 38, 37, 36, 34, 33, 32, 30, 30, 30, 30, 30, 30, 30, 30]
         };
         const subjects = [
             { id: 'matematicas', name: 'Matemáticas', emoji: '🧮', color: '#00BFFF' },
@@ -385,7 +323,7 @@
         ];
         const officialAverages = { matematicas: 50.1, lectura: 51.5, sociales: 47.1, ciencias: 49.0, ingles: 49.5 };
         const nonOfficialAverages = { matematicas: 58.5, lectura: 59.8, sociales: 55.4, ciencias: 57.3, ingles: 58.9 };
-
+        
         const weights = { matematicas: 3, lectura: 3, sociales: 3, ciencias: 3, ingles: 1 };
         let currentScores = {};
         let performanceChart, comparisonChart;
@@ -402,7 +340,7 @@
             initializeThematicTrail();
             initializeSecurity();
             updateAll(true);
-
+            
             anime({
                 targets: '.animated-item',
                 translateY: [20, 0],
@@ -418,7 +356,7 @@
             const toggle = document.getElementById('theme-toggle');
             const lightIcon = document.getElementById('theme-icon-light');
             const darkIcon = document.getElementById('theme-icon-dark');
-
+            
             const updateThemeUI = () => {
                 const isLight = document.documentElement.classList.contains('light');
                 document.getElementById('theme-color-meta').setAttribute('content', isLight ? '#f1f5f9' : '#0f172a');
@@ -459,11 +397,11 @@
         function initializeCharts() {
             const radarCtx = document.getElementById('performanceChart').getContext('2d');
             performanceChart = new Chart(radarCtx, { type: 'radar', data: getRadarData(), options: getRadarOptions() });
-
+            
             const barCtx = document.getElementById('comparisonChart').getContext('2d');
             comparisonChart = new Chart(barCtx, { type: 'bar', data: getBarData(), options: getBarOptions() });
         }
-
+        
         function initializeActionButtons() {
             document.getElementById('reset-all-btn').addEventListener('click', () => {
                 subjects.forEach(subject => {
@@ -481,7 +419,7 @@
             const detailModal = document.getElementById('detail-modal');
             document.getElementById('close-modal-btn').addEventListener('click', () => detailModal.classList.remove('active'));
             detailModal.addEventListener('click', (e) => { if (e.target === detailModal) detailModal.classList.remove('active'); });
-
+            
             const infoModal = document.getElementById('info-modal');
             document.getElementById('info-comparison-btn').addEventListener('click', () => infoModal.classList.add('active'));
             document.getElementById('close-info-modal-btn').addEventListener('click', () => infoModal.classList.remove('active'));
@@ -516,7 +454,7 @@
         }
 
         function adjustErrors(subjectId, amount) {
-            const input = document.getElementById(`errors-${subjectId}`);
+            const input = document.getElementById(`errors-${subject.id}`);
             let val = (parseInt(input.value) || 0) + amount;
             val = Math.max(0, Math.min(val, parseInt(input.max)));
             input.value = val;
@@ -526,7 +464,7 @@
         function handleInput(event, subject) {
             const score = getScoreFromTable(parseInt(event.target.value) || 0, subject.id);
             currentScores[subject.id] = score;
-
+            
             const scoreElement = document.getElementById(`score-${subject.id}`);
             anime({
                 targets: scoreElement,
@@ -545,7 +483,7 @@
             updatePerformanceLevels();
             updateCharts();
         }
-
+        
         function updateSummary() {
             const strongList = document.getElementById('strongest-areas-list');
             const weakList = document.getElementById('weakest-areas-list');
@@ -599,7 +537,7 @@
 
                 achievedBtn.style.display = achievedLevels.length > 0 ? 'block' : 'none';
                 if (achievedLevels.length > 0) achievedBtn.innerHTML = `Alcanzados (${achievedLevels.length})`;
-
+                
                 missingBtn.style.display = missingLevels.length > 0 ? 'block' : 'none';
                 if (missingLevels.length > 0) missingBtn.innerHTML = `Faltantes (${missingLevels.length})`;
 
@@ -637,7 +575,7 @@
                 const feedback = getGlobalFeedback(finalScore);
                 feedbackElement.innerHTML = `<p class="${feedback.color} font-semibold">${feedback.message}</p>`;
             };
-
+            
             const scoreObj = { value: isInitial ? 0 : parseInt(scoreElement.textContent) };
             anime({
                 targets: scoreObj,
@@ -652,16 +590,16 @@
                 complete: updateFeedback
             });
         }
-
+        
         function getGlobalFeedback(score) {
             if (score > 400) return { message: "¡Excelente!", color: "text-green-400" };
             if (score > 350) return { message: "¡Muy Bien!", color: "text-blue-400" };
             if (score > 250) return { message: "Buen Comienzo", color: "text-yellow-400" };
             return { message: "A Mejorar", color: "text-red-400" };
         }
-
+        
         function getScoreFromTable(e, s) { return scoreLookupTable[s][e] || scoreLookupTable[s].slice(-1)[0]; }
-
+        
         function saveReportToClipboard() {
             let report = `--- REPORTE DE DIAGNÓSTICO SEAMOSGENIOS ---\n`;
             report += `Puntaje Global Simulado: ${calculateGlobalScore()} / 500\n\n`;
@@ -673,7 +611,7 @@
                 setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(1.25rem)'; }, 3000);
             });
         }
-
+        
         function updateCharts() {
             if (!performanceChart || !comparisonChart) return;
             const scores = subjects.map(s => currentScores[s.id]);
@@ -684,12 +622,12 @@
             performanceChart.update('none');
             comparisonChart.update('none');
         }
-
+        
         function updateChartColors() {
             const isLight = document.documentElement.classList.contains('light');
             const textColor = isLight ? '#0f172a' : '#f8fafc';
             const gridColor = isLight ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)';
-
+            
             if (performanceChart) {
                 const pOptions = performanceChart.options;
                 pOptions.plugins.legend.labels.color = textColor;
@@ -716,7 +654,7 @@
             const computedStyle = getComputedStyle(document.documentElement);
             return {
                 responsive: true, maintainAspectRatio: false,
-                plugins: {
+                plugins: { 
                     tooltip: {
                         backgroundColor: isLight ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
                         titleColor: isLight ? '#0f172a' : '#f8fafc',
@@ -745,12 +683,12 @@
             opts.plugins.tooltip = {
                 ...opts.plugins.tooltip,
                 callbacks: {
-                    label: function (context) {
+                    label: function(context) {
                         const datasetLabel = context.dataset.label || '';
                         const value = context.parsed.y;
                         return `${datasetLabel}: ${value}`;
                     },
-                    footer: function (tooltipItems) {
+                    footer: function(tooltipItems) {
                         const index = tooltipItems[0].dataIndex;
                         const yourScore = comparisonChart.data.datasets[0].data[index];
                         const publicScore = comparisonChart.data.datasets[1].data[index];
@@ -768,10 +706,10 @@
                     color: isLight ? '#0f172a' : '#f8fafc',
                     boxWidth: 12,
                     font: { size: 14, family: 'Inter' },
-                    generateLabels: function (chart) {
+                    generateLabels: function(chart) {
                         const originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
                         const defaultColor = getComputedStyle(document.body).getPropertyValue('--text-primary').trim();
-
+                        
                         originalLabels.forEach(label => {
                             if (label.text === 'Tu Puntaje') {
                                 label.fillStyle = activeSubjectColor || defaultColor;
@@ -796,21 +734,21 @@
 
         function getRadarData() {
             const defaultColor = getComputedStyle(document.body).getPropertyValue('--text-primary');
-            return {
-                labels: subjects.map(s => s.name),
-                datasets: [{
-                    label: 'Tu Puntaje',
-                    data: [],
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    borderColor: defaultColor,
+            return { 
+                labels: subjects.map(s => s.name), 
+                datasets: [{ 
+                    label: 'Tu Puntaje', 
+                    data: [], 
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                    borderColor: defaultColor, 
                     borderWidth: 2,
                     pointBackgroundColor: defaultColor,
                     pointHoverBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff'
-                }]
+                }] 
             };
         }
-
+        
         function getBarData() {
             return {
                 labels: subjects.map(s => s.name),
@@ -821,7 +759,7 @@
                 ]
             };
         }
-
+        
         function getPerformanceLevel(subjectId, score) {
             switch (subjectId) {
                 case 'lectura': if (score <= 35) return 1; if (score <= 50) return 2; if (score <= 65) return 3; return 4;
@@ -832,7 +770,7 @@
                 default: return 1;
             }
         }
-
+        
         function getLevelStyle(levelKey) {
             const levelNum = Math.floor(levelKey);
             if (levelNum === 4 || levelNum === 5) return { bgColor: 'rgba(59, 130, 246, 0.2)', textColor: '#60a5fa' };
@@ -851,7 +789,7 @@
                 : allLevels.filter(level => parseFloat(level) > parseFloat(currentLevelKey));
 
             const title = (type === 'achieved') ? 'Niveles Alcanzados' : 'Niveles Faltantes';
-            document.getElementById('modal-title').textContent = `${title} en ${subjects.find(s => s.id === subjectId).name}`;
+            document.getElementById('modal-title').textContent = `${title} en ${subjects.find(s=>s.id === subjectId).name}`;
 
             let modalBodyContent = '';
             if (relevantLevels.length === 0) {
@@ -876,12 +814,12 @@
         function initializeThematicTrail() {
             const cards = document.querySelectorAll('.card');
             const body = document.querySelector('body');
-
+            
             const setDefaultColor = () => {
                 currentTrailColor = getComputedStyle(body).getPropertyValue('--accent-color').trim();
             };
-
-            setDefaultColor();
+            
+            setDefaultColor(); 
 
             cards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
@@ -945,7 +883,7 @@
                 init();
             }
             window.addEventListener('resize', resizeCanvas);
-
+            
             window.addEventListener('mousemove', (event) => {
                 mouse.x = event.clientX;
                 mouse.y = event.clientY;
@@ -1016,29 +954,25 @@
                     }
                 }
             }
-
+            
             resizeCanvas();
             animate();
-
+            
             document.getElementById('theme-toggle').addEventListener('click', init);
         }
-
-        // CAMBIO: Función de seguridad
+        
         function initializeSecurity() {
-            // Deshabilitar clic derecho
             document.addEventListener('contextmenu', event => event.preventDefault());
 
-            // Deshabilitar atajos de teclado
-            document.addEventListener('keydown', function (event) {
+            document.addEventListener('keydown', function(event) {
                 if (event.key === 'F12' ||
-                    (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
-                    (event.ctrlKey && event.key === 'U') ||
-                    (event.ctrlKey && event.key === 'S')) {
+                   (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
+                   (event.ctrlKey && event.key === 'U') ||
+                   (event.ctrlKey && event.key === 'S')) {
                     event.preventDefault();
                 }
             });
 
-            // Detección de herramientas de desarrollador
             const devToolsDetection = () => {
                 const threshold = 160;
                 if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
@@ -1050,5 +984,4 @@
 
     </script>
 </body>
-
 </html>
